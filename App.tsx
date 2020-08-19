@@ -1,12 +1,19 @@
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { SafeAreaView, StatusBar, Text } from "react-native";
+import "react-native-gesture-handler";
+import { Home, TodoDetail } from "./src/screens";
+
+const Stack = createStackNavigator();
 
 const App: React.FC = () => (
   <>
-    <StatusBar barStyle="dark-content" />
-    <SafeAreaView>
-      <Text>Indeed</Text>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Todo-Detail" component={TodoDetail} />
+      </Stack.Navigator>
+    </NavigationContainer>
   </>
 );
 
