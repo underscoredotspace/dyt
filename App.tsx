@@ -4,12 +4,23 @@ import React from "react";
 import "react-native-gesture-handler";
 import { NavigationParams } from "./src/hooks/useNavigate";
 import { screens } from "./src/screens";
+import theme from "./src/theme";
 
 const Stack = createStackNavigator();
 
 const App: React.FC = () => (
   <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTintColor: theme.colors.white,
+        headerStyle: {
+          backgroundColor: theme.colors.blue[700],
+        },
+        headerTitleStyle: {
+          fontSize: theme.fontSize.xxl,
+        },
+      }}
+    >
       {screens.map((screen) => (
         <Stack.Screen
           key={`screen-${screen.name}`}
