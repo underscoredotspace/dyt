@@ -6,6 +6,7 @@ export const screens: Screen[] = [
   {
     name: ScreenName.HOME,
     component: Home,
+    title: "Todo List",
   },
   {
     name: ScreenName.TODO_DETAIL,

@@ -2,19 +2,34 @@ import React from "react";
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { ScreenContainer } from "../containers/ScreenContainer";
-import { useNavigation } from "../hooks";
+import { useNavigate } from "../hooks";
 import { ScreenName } from "./types";
 
 export const Home: React.FC = () => {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigate();
+
   return (
     <ScreenContainer>
       <TouchableOpacity
-        onPress={(): void => {
-          navigate(ScreenName.TODO_DETAIL);
+        style={{ padding: 10 }}
+        onPress={() => {
+          navigate({
+            route: ScreenName.TODO_DETAIL,
+            title: "To Do Item Detail",
+          });
         }}
       >
-        <Text>Hello Home</Text>
+        <Text>Go to detail with title passed</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={{ padding: 10 }}
+        onPress={() => {
+          navigate({
+            route: ScreenName.TODO_DETAIL,
+          });
+        }}
+      >
+        <Text>Go to detail with notitle</Text>
       </TouchableOpacity>
     </ScreenContainer>
   );

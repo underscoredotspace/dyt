@@ -6,4 +6,5 @@ export enum ScreenName {
 export interface Screen {
   name: ScreenName;
   component: React.FC;
+  title?: string;
 }
