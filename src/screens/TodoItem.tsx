@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Row } from '../components/primitives';
 import theme from '../theme';
+import { Todo } from './TodoList';
 
 const style = StyleSheet.create({
   todoItem: {
@@ -13,9 +14,11 @@ const style = StyleSheet.create({
   },
 });
 
-export const TodoItem: React.FC = () => {
-  const [done, setDone] = React.useState(false);
+interface TodoItemProps extends Todo {
+  setDone: () => void;
+}
 
+export const TodoItem: React.FC<TodoItemProps> = ({ done, text, setDone }) => {
   return (
     <Row style={style.todoItem}>
       <CheckBox
@@ -31,7 +34,7 @@ export const TodoItem: React.FC = () => {
           fontSize: theme.fontSize.xl,
         }}
       >
-        Todo List
+        {text}
       </Text>
     </Row>
   );
