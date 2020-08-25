@@ -5,10 +5,10 @@ const remFontSize = {
   lg: 1.125,
   xl: 1.25,
   xxl: 1.5,
-  "3xl": 1.875,
-  "4xl": 2.25,
-  "5xl": 3,
-  "6xl": 4,
+  '3xl': 1.875,
+  '4xl': 2.25,
+  '5xl': 3,
+  '6xl': 4,
 };
 
 const fontSize = Object.entries(remFontSize).reduce((acc, [label, rems]) => {
