@@ -1,9 +1,9 @@
 import CheckBox from '@react-native-community/checkbox';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { Row } from '../components/primitives';
+import { Todo } from '../screens/TodoList';
 import theme from '../theme';
-import { Todo } from './TodoList';
+import { Row } from './primitives';
 
 const style = StyleSheet.create({
   todoItem: {
