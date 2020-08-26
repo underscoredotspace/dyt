@@ -1,8 +1,11 @@
 import { Todo, Todos } from '../screens/TodoList';
 
-interface RootState {
+export interface RootState {
   todos: Todos;
 }
+
+export type Action = { type: string; payload: { id?: string; todo?: Todo } };
+export type Dispatch = (action: Action) => void;
 
 export const initialState: RootState = {
   todos: {
@@ -17,30 +20,47 @@ export const initialState: RootState = {
   },
 };
 
-export function reducer(
-  state: RootState,
-  action: { type: string; payload: { id: string; todo?: Todo } }
-) {
+export function reducer(state: RootState, action: Action) {
+  const id = action.payload.id;
+  const todo = action.payload.todo;
+
   switch (action.type) {
     case 'toggleDone':
-      const newTodo = state.todos[action.payload.id];
+      if (!id) {
+        return state;
+      }
+
+      const newTodo = state.todos[id];
       if (!newTodo) {
         return state;
       }
 
-      const newState = {
+      return {
         ...state,
         todos: {
           ...state.todos,
 
-          [action.payload.id]: {
+          [id]: {
             ...newTodo,
             done: !newTodo.done,
           },
         },
       };
 
-      return newState;
+    case 'addTodo':
+      const newId = `${
+        Math.max(...Object.keys(state.todos).map((s) => Number(s))) + 1
+      }`;
+      console.log(newId, todo);
+
+      return {
+        ...state,
+        todos: {
+          ...state.todos,
+          [newId]: todo,
+        },
+      };
+
     default:
       return state;
   }
