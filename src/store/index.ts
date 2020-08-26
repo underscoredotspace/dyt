@@ -48,10 +48,12 @@ export function reducer(state: RootState, action: Action) {
       };
 
     case 'addTodo':
-      const newId = `${
-        Math.max(...Object.keys(state.todos).map((s) => Number(s))) + 1
-      }`;
-      console.log(newId, todo);
+      const todoIds = Object.keys(state.todos);
+
+      const newId =
+        todoIds.length > 0
+          ? `${Math.max(...todoIds.map((s) => Number(s))) + 1}`
+          : 1;
 
       return {
         ...state,

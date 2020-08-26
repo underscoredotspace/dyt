@@ -1,15 +1,19 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'react-native-gesture-handler';
 import { TodoAdd } from './src/screens/TodoAdd';
 import { TodoList, TodoListHeader } from './src/screens/TodoList';
-import { initialState, reducer } from './src/store';
+import { reducer } from './src/store';
 
 const Stack = createStackNavigator();
 
 const App: React.FC = () => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const [state, dispatch] = React.useReducer(reducer, { todos: {} });
+
+  useEffect(() => {
+    console.log(JSON.stringify(state.todos, null, 2));
+  }, [state.todos]);
 
   return (
     <NavigationContainer>
