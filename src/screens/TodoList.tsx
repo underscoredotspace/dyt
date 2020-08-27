@@ -61,11 +61,11 @@ export const TodoList: React.FC<TodoListProps> = ({ state, dispatch }) => {
   return (
     <ScreenContainer>
       <FlatList
+        keyExtractor={([id]) => `todo-item-${id}`}
         data={Object.entries(state.todos)}
         renderItem={({ item: [id, todo] }) =>
           todo ? (
             <TodoItem
-              key={`todo-item-${id}`}
               setDone={() => dispatch({ type: 'toggleDone', payload: { id } })}
               {...todo}
             />

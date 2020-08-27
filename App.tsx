@@ -1,15 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
 import { TodoAdd } from './src/screens/TodoAdd';
 import { TodoList, TodoListHeader } from './src/screens/TodoList';
-import { reducer } from './src/store';
+import { reducer, RootState } from './src/store';
+import localStorage from './src/store/localStorage';
 
 const Stack = createStackNavigator();
 
-const App: React.FC = () => {
-  const [state, dispatch] = React.useReducer(reducer, { todos: {} });
+const App: React.FC<{ rootState: RootState }> = ({ rootState }) => {
+  const [state, dispatch] = React.useReducer(reducer, rootState);
 
   useEffect(() => {
     console.log(JSON.stringify(state.todos, null, 2));
@@ -32,4 +33,12 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default () => {
+  const [rootState, setRootState] = useState<RootState | null>(null);
+
+  useEffect(() => {
+    localStorage.get('todos').then((todos) => setRootState({ todos }));
+  }, []);
+
+  return rootState ? <App rootState={rootState} /> : null;
+};

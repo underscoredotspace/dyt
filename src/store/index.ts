@@ -1,4 +1,5 @@
 import { Todo, Todos } from '../screens/TodoList';
+import localStorage from './localStorage';
 
 export interface RootState {
   todos: Todos;
@@ -7,20 +8,7 @@ export interface RootState {
 export type Action = { type: string; payload: { id?: string; todo?: Todo } };
 export type Dispatch = (action: Action) => void;
 
-export const initialState: RootState = {
-  todos: {
-    '1': {
-      done: false,
-      text: 'first',
-    },
-    '2': {
-      done: true,
-      text: 'second',
-    },
-  },
-};
-
-export function reducer(state: RootState, action: Action) {
+export const reducer = (state: RootState, action: Action) => {
   const id = action.payload.id;
   const todo = action.payload.todo;
 
@@ -35,7 +23,7 @@ export function reducer(state: RootState, action: Action) {
         return state;
       }
 
-      return {
+      const toggleDoneState = {
         ...state,
         todos: {
           ...state.todos,
@@ -47,6 +35,9 @@ export function reducer(state: RootState, action: Action) {
         },
       };
 
+      localStorage.set('todos', toggleDoneState);
+      return toggleDoneState;
+
     case 'addTodo':
       const todoIds = Object.keys(state.todos);
 
@@ -55,7 +46,7 @@ export function reducer(state: RootState, action: Action) {
           ? `${Math.max(...todoIds.map((s) => Number(s))) + 1}`
           : 1;
 
-      return {
+      const addTodoState = {
         ...state,
         todos: {
           ...state.todos,
@@ -63,7 +54,10 @@ export function reducer(state: RootState, action: Action) {
         },
       };
 
+      localStorage.set('todos', addTodoState);
+      return addTodoState;
+
     default:
       return state;
   }
-}
+};
